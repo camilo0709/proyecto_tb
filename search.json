@@ -1,0 +1,112 @@
+[
+  {
+    "objectID": "EDA_Dataset_TBX11K.html",
+    "href": "EDA_Dataset_TBX11K.html",
+    "title": "1  ANÁLISIS EXPLORATORIO DE DATOS (EDA)",
+    "section": "",
+    "text": "1.1 Dataset TBX11K - Tuberculosis X-ray Detection\nCode\n# Setup básico\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom IPython.display import Markdown, display\nimport warnings\nwarnings.filterwarnings('ignore')\n\n# Configuración visual\nplt.style.use('seaborn-v0_8-whitegrid')\nsns.set_palette('Set2')\n%matplotlib inline\n\nprint(' Librerías cargadas exitosamente')\n\n\n✅ Librerías cargadas exitosamente",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ANÁLISIS EXPLORATORIO DE DATOS (EDA)</span>"
+    ]
+  },
+  {
+    "objectID": "EDA_Dataset_TBX11K.html#dataset-tbx11k---tuberculosis-x-ray-detection",
+    "href": "EDA_Dataset_TBX11K.html#dataset-tbx11k---tuberculosis-x-ray-detection",
+    "title": "1  ANÁLISIS EXPLORATORIO DE DATOS (EDA)",
+    "section": "",
+    "text": "Título: Análisis Exploratorio del Dataset TBX11K\nAutores: Mujica Camilo y Romero Carlos\nEnfoque: Análisis puro de datos + objetivos futuros\nDataset: Tuberculosis X-ray (TBX11K) - CVPR 2020\nPreparado: Septiembre 2024",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ANÁLISIS EXPLORATORIO DE DATOS (EDA)</span>"
+    ]
+  },
+  {
+    "objectID": "EDA_Dataset_TBX11K.html#resumen-ejecutivo",
+    "href": "EDA_Dataset_TBX11K.html#resumen-ejecutivo",
+    "title": "1  ANÁLISIS EXPLORATORIO DE DATOS (EDA)",
+    "section": "1.2 Resumen Ejecutivo",
+    "text": "1.2 Resumen Ejecutivo\n\n1.2.1 Dataset TBX11K en Números\n\n\n\nMétrica\nValor\nPorcentaje\n\n\n\n\nTotal de Radiografías\n11,200\n100%\n\n\nCon TB\n7,900\n70.5%\n\n\nSin TB\n3,300\n29.5%\n\n\nTotal de Lesiones (Bboxes)\n1,211\n-\n\n\nImágenes con múltiples lesiones\n382\n4.8%\n\n\nActive TB\n972\n80.3%\n\n\nLatent TB\n239\n19.7%\n\n\n\n\n\n1.2.2 Especificaciones Técnicas\n\nResolución: 512 × 512 píxeles\nFormato: PNG (sin pérdida)\nColor: Grayscale (8-bit)\nRango de píxeles: 0-255\nTamaño total: ~2.9 GB sin comprimir\nAnotaciones: Validadas clínicamente",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ANÁLISIS EXPLORATORIO DE DATOS (EDA)</span>"
+    ]
+  },
+  {
+    "objectID": "EDA_Dataset_TBX11K.html#origen",
+    "href": "EDA_Dataset_TBX11K.html#origen",
+    "title": "1  ANÁLISIS EXPLORATORIO DE DATOS (EDA)",
+    "section": "1.3 🔍 Origen y Contexto del Dataset",
+    "text": "1.3 🔍 Origen y Contexto del Dataset\n\n1.3.1 Referencia Bibliográfica Principal\nLiu, Y., Wu, Y.-H., Ban, Y., Wang, H., & Cheng, M.-M. (2020) - Título: “Rethinking Computer-aided Tuberculosis Diagnosis” - Conferencia: IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) - DOI: https://doi.org/10.1109/CVPR42600.2020.01270 - URL: http://mmcheng.net/tb/\n\n\n1.3.2 Motivación Original\n\nTB es crítico: Segunda causa de muerte por enfermedad infecciosa (después de VIH)\nMagnitud: ~8-10 millones de casos nuevos anualmente\nDiagnóstico impreciso: Radiologos experimentados solo alcanzan 68.7% de precisión\nFalta de datos: Datasets públicos anteriores tenían ~600 imágenes máximo\n\n\n\n1.3.3 Contribución de TBX11K\n\nPrimer dataset público TB con anotaciones a nivel de bounding box (no solo imagen-level)\n11,200 radiografías - 17x más grande que dataset anterior\nAnotaciones clínicas validadas\nMúltiples lesiones por imagen soportadas\nBase sólida para investigación en IA médica\n\n\n\nCode\n# Definir datos del dataset\ndataset_stats = {\n    'Total de Radiografías': 11200,\n    'Con TB': 7900,\n    'Sin TB': 3300,\n    'Total de Lesiones': 1211,\n    'Active TB': 972,\n    'Latent TB': 239,\n    'Imágenes Multi-lesión': 382\n}\n\n# Crear DataFrame para referencia\nstats_df = pd.DataFrame({\n    'Métrica': ['Total de Radiografías', 'Con TB', 'Sin TB', 'Total de Lesiones',\n                'Active TB', 'Latent TB', 'Imágenes Multi-lesión'],\n    'Valor': [11200, 7900, 3300, 1211, 972, 239, 382]\n})\n\nprint('Dataset TBX11K - Estadísticas Clave')\nprint('='*50)\nprint(stats_df.to_string(index=False))\nprint('='*50)\n\n\nDataset TBX11K - Estadísticas Clave\n==================================================\n              Métrica  Valor\nTotal de Radiografías  11200\n               Con TB   7900\n               Sin TB   3300\n    Total de Lesiones   1211\n            Active TB    972\n            Latent TB    239\nImágenes Multi-lesión    382\n==================================================",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ANÁLISIS EXPLORATORIO DE DATOS (EDA)</span>"
+    ]
+  },
+  {
+    "objectID": "EDA_Dataset_TBX11K.html#estadisticas",
+    "href": "EDA_Dataset_TBX11K.html#estadisticas",
+    "title": "1  ANÁLISIS EXPLORATORIO DE DATOS (EDA)",
+    "section": "1.4 Estadísticas Detalladas del Dataset",
+    "text": "1.4 Estadísticas Detalladas del Dataset\n\n1.4.1 1. Tamaño y Composición\nDistribución TB/No-TB: - Con TB: 7,900 imágenes (70.5%) - Sin TB: 3,300 imágenes (29.5%)\nInterpretación: Dataset está balanceado hacia TB positivos, representando prevalencia realista en clínica de screening poblacional.\n\n\n1.4.2 2. Tipos de TB\n\n\n\n\n\n\n\n\n\nTipo\nLesiones\n%\nDefinición\n\n\n\n\nActive TB\n972\n80.3%\nTB activa/aguda - Patrón infeccioso activo\n\n\nLatent TB\n239\n19.7%\nTB latente/inactiva - Infección antigua controlada\n\n\n\n\n\n1.4.3 3. Complejidad de Casos\n\n1 Lesión por imagen: 7,518 imágenes (95.2%)\n2 Lesiones por imagen: 302 imágenes (3.8%)\n3+ Lesiones por imagen: 80 imágenes (0.9%)\n\nInterpretación: Mayoría de casos son simples (una lesión). Casos complejos son minoría, útil para validación separada.\n\n\nCode\n# Crear figura con visualizaciones principales\nfig, axes = plt.subplots(2, 2, figsize=(14, 10))\nfig.suptitle('EDA - Dataset TBX11K\\nAnálisis de Datos Puro',\n             fontsize=16, fontweight='bold', y=0.995)\n\n# 1. Distribución TB/No-TB\nax = axes[0, 0]\nsizes = [7900, 3300]\nlabels = ['Con TB\\n(7,900)', 'Sin TB\\n(3,300)']\ncolors = ['#FF6B6B', '#4ECDC4']\nax.pie(sizes, labels=labels, autopct='%1.1f%%', colors=colors,\n       explode=(0.05, 0), startangle=90, textprops={'fontsize': 11, 'weight': 'bold'})\nax.set_title('Distribución: TB vs No-TB', fontweight='bold', fontsize=12)\n\n# 2. Tipos de TB\nax = axes[0, 1]\ntipos = ['Active TB\\n(972)', 'Latent TB\\n(239)']\nvalores = [972, 239]\ncolors_tb = ['#E74C3C', '#F39C12']\nbars = ax.bar(tipos, valores, color=colors_tb, edgecolor='black', linewidth=1.5)\nax.set_ylabel('Número de Lesiones', fontweight='bold', fontsize=11)\nax.set_title('Tipos de TB', fontweight='bold', fontsize=12)\nax.grid(axis='y', alpha=0.3)\nfor bar, val in zip(bars, valores):\n    height = bar.get_height()\n    ax.text(bar.get_x() + bar.get_width()/2., height + 20,\n            f'{val}\\n({val*100/sum(valores):.1f}%)',\n            ha='center', va='bottom', fontweight='bold', fontsize=10)\n\n# 3. Múltiples Lesiones\nax = axes[1, 0]\nlesiones = ['1 Lesión\\n(95.2%)', '2 Lesiones\\n(3.8%)', '3+ Lesiones\\n(0.9%)']\ncantidades = [7518, 302, 80]\ncolores = ['#27AE60', '#F39C12', '#E74C3C']\nbars = ax.barh(lesiones, cantidades, color=colores, edgecolor='black', linewidth=1.5)\nax.set_xlabel('Número de Imágenes TB', fontweight='bold', fontsize=11)\nax.set_title('Complejidad de Casos', fontweight='bold', fontsize=12)\nax.grid(axis='x', alpha=0.3)\nfor bar, val in zip(bars, cantidades):\n    ax.text(val + 100, bar.get_y() + bar.get_height()/2, f'{val:,}',\n            va='center', fontweight='bold', fontsize=10)\n\n# 4. Especificaciones Técnicas\nax = axes[1, 1]\nax.axis('off')\nspecs_text = \"\"\"ESPECIFICACIONES TÉCNICAS\n\nImágenes:\n  • Resolución: 512 × 512 píxeles\n  • Formato: PNG (sin pérdida)\n  • Color: Grayscale (8-bit)\n  • Tamaño unitario: ~262 KB/imagen\n  • Tamaño total: ~2.9 GB\n\nAnotaciones:\n  • Tipo: Bounding boxes (rectangulares)\n  • Total de lesiones: 1,211\n  • Validación: Clínicamente verificadas\n\nRango de Valores:\n  • Píxeles: [0, 255]\n  • Tipo de dato: uint8\"\"\"\nax.text(0.05, 0.95, specs_text, transform=ax.transAxes,\n        fontsize=10, verticalalignment='top', fontfamily='monospace',\n        bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.3, pad=1))\n\nplt.tight_layout()\nplt.show()\n\nprint(' Visualización completada')\n\n\n\n\n\n\n\n\n\n✅ Visualización completada",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ANÁLISIS EXPLORATORIO DE DATOS (EDA)</span>"
+    ]
+  },
+  {
+    "objectID": "EDA_Dataset_TBX11K.html#objetivos-de-trabajo-futuro",
+    "href": "EDA_Dataset_TBX11K.html#objetivos-de-trabajo-futuro",
+    "title": "1  ANÁLISIS EXPLORATORIO DE DATOS (EDA)",
+    "section": "1.5 Objetivos de Trabajo Futuro",
+    "text": "1.5 Objetivos de Trabajo Futuro\n\n1.5.1 Objetivo General\n\nDesarrollar un sistema automático de segmentación de lesiones TB en radiografías de tórax mediante técnicas de aprendizaje débilmente supervisado, que permita:\n\nConvertir anotaciones de bounding boxes en máscaras segmentadas precisas\nEntrenar modelos de segmentación sin anotaciones píxel-a-píxel costosas\nFacilitar diagnóstico asistido por computadora en entornos clínicos\nCrear herramienta reutilizable para investigación en IA médica\n\n\n\n\n1.5.2 Objetivos Específicos\n\n1.5.2.1 O.E.1: Preparación y Procesamiento de Datos\n\nValidar integridad de 11,200 radiografías\nVerificar formato PNG y dimensiones (512×512)\nParsear y validar CSV de bounding boxes\nCrear splits: Train (85%), Val (10%), Test (5%)\nCalcular estadísticas de normalización\n\n\n\n1.5.2.2 O.E.2: Generación de Máscaras de Entrenamiento\n\nCrear pseudomáscaras rectangulares desde bboxes\nRefinar usando métodos alternativos (GrabCut, SAM, etc.)\nManejar múltiples lesiones por imagen\nValidación manual de calidad (~100 casos)\nDocumentar mejoras vs baseline\n\n\n\n1.5.2.3 O.E.3: Entrenamiento de Modelo Base\n\nImplementar U-Net 2D (encoder-decoder)\nConfigurar loss functions ponderadas (Dice + Cross-entropy)\nData augmentation y regularización\nMonitoreo de convergencia\nGuardado de checkpoints\n\n\n\n1.5.2.4 O.E.4: Análisis de Resultados\n\nCalcular Dice, IoU, Sensibilidad, Especificidad\nAnálisis por subgrupos (Active vs Latent TB)\nAnálisis de errores (false positive/negative)\nVisualización de predicciones\nRedacción de reporte final",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ANÁLISIS EXPLORATORIO DE DATOS (EDA)</span>"
+    ]
+  },
+  {
+    "objectID": "EDA_Dataset_TBX11K.html#métricas-a-reportar",
+    "href": "EDA_Dataset_TBX11K.html#métricas-a-reportar",
+    "title": "1  ANÁLISIS EXPLORATORIO DE DATOS (EDA)",
+    "section": "1.6 Métricas a Reportar",
+    "text": "1.6 Métricas a Reportar\n\n1.6.1 A Nivel de Píxel (Segmentación)\n\n\n\n\n\n\n\n\n\n\nMétrica\nFórmula\nInterpretación\nRango\nObjetivo\n\n\n\n\nDice\n2|X∩Y|/(|X|+|Y|)\nSolapamiento de máscaras\n[0,1]\n&gt; 0.70\n\n\nIoU\n|X∩Y|/|X∪Y|\nIntersección/Unión\n[0,1]\n&gt; 0.60\n\n\nSensibilidad\nTP/(TP+FN)\n¿Detecta lesiones reales?\n[0,1]\n&gt; 0.80\n\n\nEspecificidad\nTN/(TN+FP)\n¿Evita falsos positivos?\n[0,1]\n&gt; 0.85\n\n\nPrecisión\nTP/(TP+FP)\nConfiabilidad predicciones\n[0,1]\n&gt; 0.75\n\n\nF1-Score\n2×(P×R)/(P+R)\nBalance precisión-recall\n[0,1]\n&gt; 0.70\n\n\n\n\n\n1.6.2 A Nivel Clínico (Diagnóstico)\n\n\n\n\n\n\n\n\nMétrica\nSignificado\nImportancia\n\n\n\n\nVPP\nSi dice TB, ¿realmente hay TB?\nConfianza positiva\n\n\nVPN\nSi dice sano, ¿realmente lo es?\nConfianza negativa\n\n\nSensibilidad Clínica\n¿Identifica lesiones TB reales?\nCRÍTICA - No perder casos\n\n\nEspecificidad Clínica\n¿Evita alarmas falsas?\nImportante - Reduce sobrediagnóstico\n\n\nAUC-ROC\nDiscriminación global\nRendimiento general del modelo\n\n\n\n\n\n1.6.3 Análisis por Subgrupos\n\nActive TB vs Latent TB\nLesiones pequeñas vs grandes\nLesiones únicas vs múltiples\nPor ubicación anatómica\nPor calidad de imagen",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ANÁLISIS EXPLORATORIO DE DATOS (EDA)</span>"
+    ]
+  },
+  {
+    "objectID": "EDA_Dataset_TBX11K.html#consideraciones-importantes",
+    "href": "EDA_Dataset_TBX11K.html#consideraciones-importantes",
+    "title": "1  ANÁLISIS EXPLORATORIO DE DATOS (EDA)",
+    "section": "1.7 Consideraciones Importantes",
+    "text": "1.7 Consideraciones Importantes\n\n1.7.1 Limitaciones del Dataset\nAnotaciones Débiles - Bounding boxes son aproximadas (no contornos exactos) - No representan lesiones pixel-perfectas - Requieren refinamiento antes de usar como ground truth\nSesgo Geográfico - Dataset procede de región específica (China) - Puede no representar patología TB en otras poblaciones - Validación local es necesaria (especialmente en Atlántico, Colombia)\nVariabilidad Técnica - Radiografías de múltiples equipos y centros - Variación en técnica radiográfica - Calidad heterogénea de imágenes - Requiere normalización y data augmentation\nLesiones Pequeñas - Lesiones &lt; 5% del área de imagen son difíciles de detectar - Requiere arquitectura con buena resolución espacial - Data augmentation crítica\n\n\n1.7.2 Desafíos Metodológicos\nDesequilibrio de Clases\nEn cada radiografía:\n├─ Fondo (no-lesión):  ~450,000 píxeles (87%)\n└─ Lesión:             ~60,000 píxeles (13%)\n\nProblema: Modelo tiende a predecir \"fondo\" trivialmente\nSolución: Loss functions ponderadas (Dice, Focal Loss)\nLesiones Ambiguas - Algunos infiltrados difusos no claramente TB - Solapamiento con otras patologías - Requiere validación clínica\nFusión de Lesiones Cercanas - Métodos de refinamiento pueden fusionar lesiones próximas - Requiere post-procesamiento (watershed, etc.)\n\n\n1.7.3 CRÍTICO: No es Diagnóstico\nEste modelo es ASISTENCIA MÉDICA, NO DIAGNÓSTICO - Requiere interpretación radiológica especializada - No reemplaza especialista TB - Validación clínica exhaustiva es obligatoria - Requiere estudios de concordancia antes de uso clínico",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ANÁLISIS EXPLORATORIO DE DATOS (EDA)</span>"
+    ]
+  },
+  {
+    "objectID": "EDA_Dataset_TBX11K.html#conclusiones",
+    "href": "EDA_Dataset_TBX11K.html#conclusiones",
+    "title": "1  ANÁLISIS EXPLORATORIO DE DATOS (EDA)",
+    "section": "1.8 Conclusiones",
+    "text": "1.8 Conclusiones\n\n1.8.1 Dataset TBX11K: Evaluación General\n\n1.8.1.1 Fortalezas\n\nDataset robusto y público\n\n11,200 radiografías es cantidad suficiente para entrenar deep learning\nValidación clínica de etiquetas\nDisponible para investigación\n\nAnotaciones detalladas\n\nBounding boxes permiten generar máscaras de entrenamiento\nMúltiples lesiones por imagen soportadas\nDiferenciación Active vs Latent TB\n\nParámetros técnicos viables\n\nResolución 512×512 es estándar en radiografía digital\nFormato PNG sin pérdida asegura calidad\nGrayscale simplifica procesamiento\n\nProblema bien definido\n\nSegmentación de TB es tarea médica importante\nTiene aplicaciones clínicas potenciales\nAlineado con investigación internacional\n\n\n\n\n1.8.1.2 Limitaciones\n\nAnotaciones débiles\n\nBboxes ≠ máscaras precisas\nRequiere refinamiento antes de usarse como ground truth\n\nSesgo geográfico\n\nDataset de región específica\nValidación en contextos locales necesaria\n\nVariabilidad técnica\n\nEquipos y calidad heterogénea\nNormalización cuidadosa requerida\n\nNo es diagnóstico\n\nEs asistencia, no reemplaza especialista\nValidación clínica es obligatoria",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ANÁLISIS EXPLORATORIO DE DATOS (EDA)</span>"
+    ]
+  },
+  {
+    "objectID": "EDA_Dataset_TBX11K.html#referencias-bibliográficas",
+    "href": "EDA_Dataset_TBX11K.html#referencias-bibliográficas",
+    "title": "1  ANÁLISIS EXPLORATORIO DE DATOS (EDA)",
+    "section": "1.9 Referencias Bibliográficas",
+    "text": "1.9 Referencias Bibliográficas\n\n1.9.1 Dataset Principal\n\nLiu et al., 2020 - “Rethinking Computer-aided Tuberculosis Diagnosis”\n\nCVPR 2020 (IEEE/CVF Conference)\nDOI: 10.1109/CVPR42600.2020.01270\nURL: http://mmcheng.net/tb/\n\n\n\n\n1.9.2 Arquitecturas Base\n\nRonneberger et al., 2015 - “U-Net: Convolutional Networks for Biomedical Image Segmentation”\n\nMICCAI 2015\nArquitectura estándar para segmentación médica\nDOI: 10.1007/978-3-319-24574-4_28\n\n\n\n\n1.9.3 Datasets Relacionados\n\nIrvin et al., 2019 - CheXpert\n\n224K radiografías públicas\nAAAI 2019\n\nWang et al., 2017 - ChestX-ray14\n\n112K radiografías públicas\nBenchmark importante en radiografía de tórax\n\n\n\n\n1.9.4 Librerías y Herramientas\n\nPyTorch: Deep Learning Framework\nOpenCV: Computer Vision Library\nscikit-learn: Machine Learning Metrics\nPandas/NumPy: Data Science\nMatplotlib/Seaborn: Data Visualization",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>ANÁLISIS EXPLORATORIO DE DATOS (EDA)</span>"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Análisis Exploratorio del Dataset TBX11K",
+    "section": "",
+    "text": "Preface\nThis is a Quarto book.\nTo learn more about Quarto books visit https://quarto.org/docs/books.",
+    "crumbs": [
+      "Preface"
+    ]
+  }
+]
