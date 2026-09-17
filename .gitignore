@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+desktop.ini
+
+# Quarto
+_book/
+.quarto/
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
