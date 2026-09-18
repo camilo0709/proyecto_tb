@@ -173,8 +173,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#resumen-ejecutivo" id="toc-resumen-ejecutivo" class="nav-link" data-scroll-target="#resumen-ejecutivo"><span class="header-section-number">1.3</span> Resumen Ejecutivo</a>
   <ul class="collapse">
   <li><a href="#dataset-tbx11k-en-números" id="toc-dataset-tbx11k-en-números" class="nav-link" data-scroll-target="#dataset-tbx11k-en-números"><span class="header-section-number">1.3.1</span> Dataset TBX11K en Números</a></li>
-  <li><a href="#separación-trainval-vs-test" id="toc-separación-trainval-vs-test" class="nav-link" data-scroll-target="#separación-trainval-vs-test"><span class="header-section-number">1.3.2</span> Separación Train+Val vs Test</a></li>
-  <li><a href="#especificaciones-técnicas" id="toc-especificaciones-técnicas" class="nav-link" data-scroll-target="#especificaciones-técnicas"><span class="header-section-number">1.3.3</span> Especificaciones Técnicas</a></li>
+  <li><a href="#distribución-por-tipo-de-tb-sobre-1200-imágenes-tb" id="toc-distribución-por-tipo-de-tb-sobre-1200-imágenes-tb" class="nav-link" data-scroll-target="#distribución-por-tipo-de-tb-sobre-1200-imágenes-tb"><span class="header-section-number">1.3.2</span> <strong>Distribución por tipo de TB (sobre 1,200 imágenes TB)</strong></a></li>
+  <li><a href="#separación-trainval-vs-test" id="toc-separación-trainval-vs-test" class="nav-link" data-scroll-target="#separación-trainval-vs-test"><span class="header-section-number">1.3.3</span> Separación Train+Val vs Test</a></li>
+  <li><a href="#especificaciones-técnicas" id="toc-especificaciones-técnicas" class="nav-link" data-scroll-target="#especificaciones-técnicas"><span class="header-section-number">1.3.4</span> Especificaciones Técnicas</a></li>
   </ul></li>
   <li><a href="#origen" id="toc-origen" class="nav-link" data-scroll-target="#origen"><span class="header-section-number">1.4</span> 🔍 Origen y Contexto del Dataset</a>
   <ul class="collapse">
@@ -242,6 +243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p><a href="https://colab.research.google.com/github/camilo0709/proyecto_tb/blob/main/EDA_Dataset_TBX11K.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></p>
 <section id="dataset-tbx11k---tuberculosis-x-ray-detection" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="dataset-tbx11k---tuberculosis-x-ray-detection"><span class="header-section-number">1.1</span> Dataset TBX11K - Tuberculosis X-ray Detection</h2>
 <hr>
@@ -251,7 +253,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Enfoque</strong>: Análisis puro de datos + objetivos futuros</li>
 <li><h2 id="dataset-tuberculosis-x-ray-tbx11k---cvpr-2020" data-number="1.2" class="anchored"><span class="header-section-number">1.2</span> <strong>Dataset</strong>: Tuberculosis X-ray (TBX11K) - CVPR 2020</h2></li>
 </ul>
-<div id="cell-1" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;executionInfo&quot;,&quot;value&quot;:{&quot;elapsed&quot;:2200,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1789440112611,&quot;user&quot;:{&quot;displayName&quot;:&quot;Camilo Andrés Mujica Escorcia&quot;,&quot;userId&quot;:&quot;13872329085096018059&quot;},&quot;user_tz&quot;:300}}" data-outputid="be056666-1be5-4753-9f48-79e114907a43">
+<div id="cell-2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-17T21:16:23.640348Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-17T21:16:23.640208Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-17T21:16:25.028086Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-17T21:16:25.027232Z&quot;}}" data-outputid="be056666-1be5-4753-9f48-79e114907a43">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup básico</span></span>
@@ -325,10 +327,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p><strong>Distribución por tipo de TB (sobre 1,200 imágenes TB)</strong> | Tipo | Imágenes | Porcentaje | |——|———-|———–| | <strong>Active TB</strong> | 924 | <strong>77.0%</strong> | | <strong>Latent TB</strong> | 212 | <strong>17.7%</strong> | | <strong>Active &amp; Latent TB</strong> | 54 | <strong>4.5%</strong> | | <strong>Uncertain TB</strong> | 10 | <strong>0.8%</strong> |</p>
 </section>
-<section id="separación-trainval-vs-test" class="level3" data-number="1.3.2">
-<h3 data-number="1.3.2" class="anchored" data-anchor-id="separación-trainval-vs-test"><span class="header-section-number">1.3.2</span> Separación Train+Val vs Test</h3>
+<section id="distribución-por-tipo-de-tb-sobre-1200-imágenes-tb" class="level3" data-number="1.3.2">
+<h3 data-number="1.3.2" class="anchored" data-anchor-id="distribución-por-tipo-de-tb-sobre-1200-imágenes-tb"><span class="header-section-number">1.3.2</span> <strong>Distribución por tipo de TB (sobre 1,200 imágenes TB)</strong></h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Tipo</th>
+<th>Imágenes</th>
+<th>Porcentaje</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Active TB</strong></td>
+<td>924</td>
+<td><strong>77.0%</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Latent TB</strong></td>
+<td>212</td>
+<td><strong>17.7%</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Active &amp; Latent TB</strong></td>
+<td>54</td>
+<td><strong>4.5%</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Uncertain TB</strong></td>
+<td>10</td>
+<td><strong>0.8%</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="separación-trainval-vs-test" class="level3" data-number="1.3.3">
+<h3 data-number="1.3.3" class="anchored" data-anchor-id="separación-trainval-vs-test"><span class="header-section-number">1.3.3</span> Separación Train+Val vs Test</h3>
 <p>El dataset NO se publica todo junto: solo <strong>train+val (8,400 imágenes)</strong> tiene etiquetas y bboxes públicos. El <strong>test (2,800 imágenes)</strong> está retenido con etiquetas privadas (challenge online).</p>
 <table class="caption-top table">
 <colgroup>
@@ -409,8 +444,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="especificaciones-técnicas" class="level3" data-number="1.3.3">
-<h3 data-number="1.3.3" class="anchored" data-anchor-id="especificaciones-técnicas"><span class="header-section-number">1.3.3</span> Especificaciones Técnicas</h3>
+<section id="especificaciones-técnicas" class="level3" data-number="1.3.4">
+<h3 data-number="1.3.4" class="anchored" data-anchor-id="especificaciones-técnicas"><span class="header-section-number">1.3.4</span> Especificaciones Técnicas</h3>
 <ul>
 <li><strong>Resolución</strong>: 512 × 512 píxeles</li>
 <li><strong>Formato</strong>: PNG (sin pérdida)</li>
@@ -449,7 +484,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Múltiples lesiones por imagen soportadas</strong></li>
 <li><strong>Base sólida para investigación en IA médica</strong></li>
 </ul>
-<div id="cell-4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;executionInfo&quot;,&quot;value&quot;:{&quot;elapsed&quot;:43,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1789440112666,&quot;user&quot;:{&quot;displayName&quot;:&quot;Camilo Andrés Mujica Escorcia&quot;,&quot;userId&quot;:&quot;13872329085096018059&quot;},&quot;user_tz&quot;:300}}" data-outputid="8ad77121-5f3d-42cf-c14a-78276a3734eb">
+<div id="cell-5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-17T21:16:25.055709Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-17T21:16:25.055461Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-17T21:16:25.243522Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-17T21:16:25.242675Z&quot;}}" data-outputid="8ad77121-5f3d-42cf-c14a-78276a3734eb">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definir datos del dataset (fuente: Liu et al., CVPR 2020 / TPAMI 2023)</span></span>
@@ -709,7 +744,7 @@ Conjuntos públicos vs privados:
 <li><strong>4 Lesiones por imagen</strong>: 3 imágenes (0.4%)</li>
 </ul>
 <p><strong>Interpretación</strong>: El caso más común es una sola lesión, pero cerca de la mitad de las imágenes (382; 47.8%) presentan 2 o más lesiones. Estas imágenes con múltiples lesiones son clave para validar la capacidad de detección del modelo.</p>
-<div id="cell-6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;executionInfo&quot;,&quot;value&quot;:{&quot;elapsed&quot;:1690,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1789440114354,&quot;user&quot;:{&quot;displayName&quot;:&quot;Camilo Andrés Mujica Escorcia&quot;,&quot;userId&quot;:&quot;13872329085096018059&quot;},&quot;user_tz&quot;:300}}" data-outputid="7e116e0b-b7f8-4c1a-b004-bdc266618971">
+<div id="cell-7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-17T21:16:25.245921Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-17T21:16:25.245713Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-17T21:16:25.517496Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-17T21:16:25.516973Z&quot;}}" data-outputid="7e116e0b-b7f8-4c1a-b004-bdc266618971">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear figura con visualizaciones principales</span></span>
