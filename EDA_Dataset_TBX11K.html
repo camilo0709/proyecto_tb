@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1&nbsp; ANÁLISIS EXPLORATORIO DE DATOS (EDA) – Análisis Exploratorio del Dataset TBX11K</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ed7344add5f1663e434276306a2aa159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./EDA_Dataset_TBX11K.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">ANÁLISIS EXPLORATORIO DE DATOS (EDA)</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Análisis Exploratorio del Dataset TBX11K</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./EDA_Dataset_TBX11K.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">ANÁLISIS EXPLORATORIO DE DATOS (EDA)</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#dataset-tbx11k---tuberculosis-x-ray-detection" id="toc-dataset-tbx11k---tuberculosis-x-ray-detection" class="nav-link active" data-scroll-target="#dataset-tbx11k---tuberculosis-x-ray-detection"><span class="header-section-number">1.1</span> Dataset TBX11K - Tuberculosis X-ray Detection</a></li>
+  <li><a href="#resumen-ejecutivo" id="toc-resumen-ejecutivo" class="nav-link" data-scroll-target="#resumen-ejecutivo"><span class="header-section-number">1.3</span> Resumen Ejecutivo</a>
+  <ul class="collapse">
+  <li><a href="#dataset-tbx11k-en-números" id="toc-dataset-tbx11k-en-números" class="nav-link" data-scroll-target="#dataset-tbx11k-en-números"><span class="header-section-number">1.3.1</span> Dataset TBX11K en Números</a></li>
+  <li><a href="#separación-trainval-vs-test" id="toc-separación-trainval-vs-test" class="nav-link" data-scroll-target="#separación-trainval-vs-test"><span class="header-section-number">1.3.2</span> Separación Train+Val vs Test</a></li>
+  <li><a href="#especificaciones-técnicas" id="toc-especificaciones-técnicas" class="nav-link" data-scroll-target="#especificaciones-técnicas"><span class="header-section-number">1.3.3</span> Especificaciones Técnicas</a></li>
+  </ul></li>
+  <li><a href="#origen" id="toc-origen" class="nav-link" data-scroll-target="#origen"><span class="header-section-number">1.4</span> 🔍 Origen y Contexto del Dataset</a>
+  <ul class="collapse">
+  <li><a href="#referencia-bibliográfica-principal" id="toc-referencia-bibliográfica-principal" class="nav-link" data-scroll-target="#referencia-bibliográfica-principal"><span class="header-section-number">1.4.1</span> Referencia Bibliográfica Principal</a></li>
+  <li><a href="#motivación-original" id="toc-motivación-original" class="nav-link" data-scroll-target="#motivación-original"><span class="header-section-number">1.4.2</span> Motivación Original</a></li>
+  <li><a href="#contribución-de-tbx11k" id="toc-contribución-de-tbx11k" class="nav-link" data-scroll-target="#contribución-de-tbx11k"><span class="header-section-number">1.4.3</span> Contribución de TBX11K</a></li>
+  </ul></li>
+  <li><a href="#estadisticas" id="toc-estadisticas" class="nav-link" data-scroll-target="#estadisticas"><span class="header-section-number">1.5</span> Estadísticas Detalladas del Dataset</a>
+  <ul class="collapse">
+  <li><a href="#tamaño-y-composición" id="toc-tamaño-y-composición" class="nav-link" data-scroll-target="#tamaño-y-composición"><span class="header-section-number">1.5.1</span> 1. Tamaño y Composición</a></li>
+  <li><a href="#tipos-de-tb-sobre-1200-imágenes-tb" id="toc-tipos-de-tb-sobre-1200-imágenes-tb" class="nav-link" data-scroll-target="#tipos-de-tb-sobre-1200-imágenes-tb"><span class="header-section-number">1.5.2</span> 2. Tipos de TB (sobre 1,200 imágenes TB)</a></li>
+  <li><a href="#separación-trainval-vs-test-1" id="toc-separación-trainval-vs-test-1" class="nav-link" data-scroll-target="#separación-trainval-vs-test-1"><span class="header-section-number">1.5.3</span> 3. Separación Train+Val vs Test</a></li>
+  <li><a href="#complejidad-de-casos-799-imágenes-tb-con-bboxes-anotados" id="toc-complejidad-de-casos-799-imágenes-tb-con-bboxes-anotados" class="nav-link" data-scroll-target="#complejidad-de-casos-799-imágenes-tb-con-bboxes-anotados"><span class="header-section-number">1.5.4</span> 4. Complejidad de Casos (799 imágenes TB con bboxes anotados)</a></li>
+  </ul></li>
+  <li><a href="#objetivos-de-trabajo-futuro" id="toc-objetivos-de-trabajo-futuro" class="nav-link" data-scroll-target="#objetivos-de-trabajo-futuro"><span class="header-section-number">1.6</span> Objetivos de Trabajo Futuro</a>
+  <ul class="collapse">
+  <li><a href="#objetivo-general" id="toc-objetivo-general" class="nav-link" data-scroll-target="#objetivo-general"><span class="header-section-number">1.6.1</span> Objetivo General</a></li>
+  <li><a href="#objetivos-específicos" id="toc-objetivos-específicos" class="nav-link" data-scroll-target="#objetivos-específicos"><span class="header-section-number">1.6.2</span> Objetivos Específicos</a></li>
+  </ul></li>
+  <li><a href="#métricas-a-reportar" id="toc-métricas-a-reportar" class="nav-link" data-scroll-target="#métricas-a-reportar"><span class="header-section-number">1.7</span> Métricas a Reportar</a>
+  <ul class="collapse">
+  <li><a href="#a-nivel-de-píxel-segmentación" id="toc-a-nivel-de-píxel-segmentación" class="nav-link" data-scroll-target="#a-nivel-de-píxel-segmentación"><span class="header-section-number">1.7.1</span> A Nivel de Píxel (Segmentación)</a></li>
+  <li><a href="#a-nivel-clínico-diagnóstico" id="toc-a-nivel-clínico-diagnóstico" class="nav-link" data-scroll-target="#a-nivel-clínico-diagnóstico"><span class="header-section-number">1.7.2</span> A Nivel Clínico (Diagnóstico)</a></li>
+  <li><a href="#análisis-por-subgrupos" id="toc-análisis-por-subgrupos" class="nav-link" data-scroll-target="#análisis-por-subgrupos"><span class="header-section-number">1.7.3</span> Análisis por Subgrupos</a></li>
+  </ul></li>
+  <li><a href="#consideraciones-importantes" id="toc-consideraciones-importantes" class="nav-link" data-scroll-target="#consideraciones-importantes"><span class="header-section-number">1.8</span> Consideraciones Importantes</a>
+  <ul class="collapse">
+  <li><a href="#limitaciones-del-dataset" id="toc-limitaciones-del-dataset" class="nav-link" data-scroll-target="#limitaciones-del-dataset"><span class="header-section-number">1.8.1</span> Limitaciones del Dataset</a></li>
+  <li><a href="#desafíos-metodológicos" id="toc-desafíos-metodológicos" class="nav-link" data-scroll-target="#desafíos-metodológicos"><span class="header-section-number">1.8.2</span> Desafíos Metodológicos</a></li>
+  <li><a href="#crítico-no-es-diagnóstico" id="toc-crítico-no-es-diagnóstico" class="nav-link" data-scroll-target="#crítico-no-es-diagnóstico"><span class="header-section-number">1.8.3</span> CRÍTICO: No es Diagnóstico</a></li>
+  </ul></li>
+  <li><a href="#conclusiones" id="toc-conclusiones" class="nav-link" data-scroll-target="#conclusiones"><span class="header-section-number">1.9</span> Conclusiones</a>
+  <ul class="collapse">
+  <li><a href="#dataset-tbx11k-evaluación-general" id="toc-dataset-tbx11k-evaluación-general" class="nav-link" data-scroll-target="#dataset-tbx11k-evaluación-general"><span class="header-section-number">1.9.1</span> Dataset TBX11K: Evaluación General</a></li>
+  </ul></li>
+  <li><a href="#referencias-bibliográficas" id="toc-referencias-bibliográficas" class="nav-link" data-scroll-target="#referencias-bibliográficas"><span class="header-section-number">1.10</span> Referencias Bibliográficas</a>
+  <ul class="collapse">
+  <li><a href="#dataset-principal" id="toc-dataset-principal" class="nav-link" data-scroll-target="#dataset-principal"><span class="header-section-number">1.10.1</span> Dataset Principal</a></li>
+  <li><a href="#arquitecturas-base" id="toc-arquitecturas-base" class="nav-link" data-scroll-target="#arquitecturas-base"><span class="header-section-number">1.10.2</span> Arquitecturas Base</a></li>
+  <li><a href="#datasets-relacionados" id="toc-datasets-relacionados" class="nav-link" data-scroll-target="#datasets-relacionados"><span class="header-section-number">1.10.3</span> Datasets Relacionados</a></li>
+  <li><a href="#librerías-y-herramientas" id="toc-librerías-y-herramientas" class="nav-link" data-scroll-target="#librerías-y-herramientas"><span class="header-section-number">1.10.4</span> Librerías y Herramientas</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">ANÁLISIS EXPLORATORIO DE DATOS (EDA)</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="dataset-tbx11k---tuberculosis-x-ray-detection" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="dataset-tbx11k---tuberculosis-x-ray-detection"><span class="header-section-number">1.1</span> Dataset TBX11K - Tuberculosis X-ray Detection</h2>
+<hr>
+<ul>
+<li><strong>Título</strong>: Análisis Exploratorio del Dataset TBX11K</li>
+<li><strong>Autores</strong>: Mujica Camilo y Romero Carlos</li>
+<li><strong>Enfoque</strong>: Análisis puro de datos + objetivos futuros</li>
+<li><h2 id="dataset-tuberculosis-x-ray-tbx11k---cvpr-2020" data-number="1.2" class="anchored"><span class="header-section-number">1.2</span> <strong>Dataset</strong>: Tuberculosis X-ray (TBX11K) - CVPR 2020</h2></li>
+</ul>
+<div id="cell-1" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;executionInfo&quot;,&quot;value&quot;:{&quot;elapsed&quot;:2200,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1789440112611,&quot;user&quot;:{&quot;displayName&quot;:&quot;Camilo Andrés Mujica Escorcia&quot;,&quot;userId&quot;:&quot;13872329085096018059&quot;},&quot;user_tz&quot;:300}}" data-outputid="be056666-1be5-4753-9f48-79e114907a43">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup básico</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> Markdown, display</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Configuración visual</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>sns.set_palette(<span class="st">'Set2'</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">' Librerías cargadas exitosamente'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> Librerías cargadas exitosamente</code></pre>
+</div>
+</div>
+</section>
+<section id="resumen-ejecutivo" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="resumen-ejecutivo"><span class="header-section-number">1.3</span> Resumen Ejecutivo</h2>
+<section id="dataset-tbx11k-en-números" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="dataset-tbx11k-en-números"><span class="header-section-number">1.3.1</span> Dataset TBX11K en Números</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Métrica</th>
+<th>Valor</th>
+<th>Porcentaje</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Total de Radiografías</strong></td>
+<td>11,200</td>
+<td>100%</td>
+</tr>
+<tr class="even">
+<td>Sano (Healthy)</td>
+<td>5,000</td>
+<td><strong>44.6%</strong></td>
+</tr>
+<tr class="odd">
+<td>Enfermo no-TB (Sick &amp; Non-TB)</td>
+<td>5,000</td>
+<td><strong>44.6%</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Con TB</strong></td>
+<td>1,200</td>
+<td><strong>10.7%</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Total de Lesiones (Bboxes, train+val)</strong></td>
+<td>1,211</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>Imágenes TB con bboxes anotados</td>
+<td>799</td>
+<td>9.5%</td>
+</tr>
+<tr class="odd">
+<td>Imágenes con múltiples lesiones (≥2 bboxes)</td>
+<td>382</td>
+<td>47.8%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Distribución por tipo de TB (sobre 1,200 imágenes TB)</strong> | Tipo | Imágenes | Porcentaje | |——|———-|———–| | <strong>Active TB</strong> | 924 | <strong>77.0%</strong> | | <strong>Latent TB</strong> | 212 | <strong>17.7%</strong> | | <strong>Active &amp; Latent TB</strong> | 54 | <strong>4.5%</strong> | | <strong>Uncertain TB</strong> | 10 | <strong>0.8%</strong> |</p>
+</section>
+<section id="separación-trainval-vs-test" class="level3" data-number="1.3.2">
+<h3 data-number="1.3.2" class="anchored" data-anchor-id="separación-trainval-vs-test"><span class="header-section-number">1.3.2</span> Separación Train+Val vs Test</h3>
+<p>El dataset NO se publica todo junto: solo <strong>train+val (8,400 imágenes)</strong> tiene etiquetas y bboxes públicos. El <strong>test (2,800 imágenes)</strong> está retenido con etiquetas privadas (challenge online).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 10%">
+<col style="width: 7%">
+<col style="width: 31%">
+<col style="width: 23%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Categoría</th>
+<th style="text-align: right;">Train</th>
+<th style="text-align: right;">Val</th>
+<th style="text-align: right;">Train+Val (público)</th>
+<th style="text-align: right;">Test (privado)</th>
+<th style="text-align: right;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sano (Healthy)</td>
+<td style="text-align: right;">3,000</td>
+<td style="text-align: right;">800</td>
+<td style="text-align: right;">3,800</td>
+<td style="text-align: right;">1,200</td>
+<td style="text-align: right;">5,000</td>
+</tr>
+<tr class="even">
+<td>Enfermo no-TB (Sick &amp; Non-TB)</td>
+<td style="text-align: right;">3,000</td>
+<td style="text-align: right;">800</td>
+<td style="text-align: right;">3,800</td>
+<td style="text-align: right;">1,200</td>
+<td style="text-align: right;">5,000</td>
+</tr>
+<tr class="odd">
+<td>Active TB</td>
+<td style="text-align: right;">473</td>
+<td style="text-align: right;">157</td>
+<td style="text-align: right;">630</td>
+<td style="text-align: right;">294</td>
+<td style="text-align: right;">924</td>
+</tr>
+<tr class="even">
+<td>Latent TB</td>
+<td style="text-align: right;">104</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">140</td>
+<td style="text-align: right;">72</td>
+<td style="text-align: right;">212</td>
+</tr>
+<tr class="odd">
+<td>Active &amp; Latent TB</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">54</td>
+</tr>
+<tr class="even">
+<td>Uncertain TB</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td style="text-align: right;">6,600</td>
+<td style="text-align: right;">1,800</td>
+<td style="text-align: right;">8,400</td>
+<td style="text-align: right;">2,800</td>
+<td style="text-align: right;">11,200</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="especificaciones-técnicas" class="level3" data-number="1.3.3">
+<h3 data-number="1.3.3" class="anchored" data-anchor-id="especificaciones-técnicas"><span class="header-section-number">1.3.3</span> Especificaciones Técnicas</h3>
+<ul>
+<li><strong>Resolución</strong>: 512 × 512 píxeles</li>
+<li><strong>Formato</strong>: PNG (sin pérdida)</li>
+<li><strong>Color</strong>: Grayscale (8-bit)</li>
+<li><strong>Rango de píxeles</strong>: 0-255</li>
+<li><strong>Tamaño total</strong>: ~2.9 GB sin comprimir</li>
+<li><strong>Anotaciones</strong>: Validadas clínicamente</li>
+<li><strong>Splits</strong>: Train 6,600 | Val 1,800 | Test 2,800</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Nota</strong>: Las anotaciones de bounding boxes solo son públicas para train+val (8,400 imágenes; 799 de ellas con TB). El test (2,800 imágenes) mantiene sus etiquetas privadas (challenge online). Los porcentajes de múltiples lesiones se calculan sobre las 799 imágenes TB anotadas.</p>
+</blockquote>
+</section>
+</section>
+<section id="origen" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="origen"><span class="header-section-number">1.4</span> 🔍 Origen y Contexto del Dataset</h2>
+<section id="referencia-bibliográfica-principal" class="level3" data-number="1.4.1">
+<h3 data-number="1.4.1" class="anchored" data-anchor-id="referencia-bibliográfica-principal"><span class="header-section-number">1.4.1</span> Referencia Bibliográfica Principal</h3>
+<p><strong>Liu, Y., Wu, Y.-H., Ban, Y., Wang, H., &amp; Cheng, M.-M. (2020)</strong> - Título: “Rethinking Computer-aided Tuberculosis Diagnosis” - Conferencia: IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) - DOI: https://doi.org/10.1109/CVPR42600.2020.01270 - URL: http://mmcheng.net/tb/</p>
+</section>
+<section id="motivación-original" class="level3" data-number="1.4.2">
+<h3 data-number="1.4.2" class="anchored" data-anchor-id="motivación-original"><span class="header-section-number">1.4.2</span> Motivación Original</h3>
+<ul>
+<li><strong>TB es crítico</strong>: Segunda causa de muerte por enfermedad infecciosa (después de VIH)</li>
+<li><strong>Magnitud</strong>: ~8-10 millones de casos nuevos anualmente</li>
+<li><strong>Diagnóstico impreciso</strong>: Radiologos experimentados solo alcanzan 68.7% de precisión</li>
+<li><strong>Falta de datos</strong>: Datasets públicos anteriores tenían ~600 imágenes máximo</li>
+</ul>
+</section>
+<section id="contribución-de-tbx11k" class="level3" data-number="1.4.3">
+<h3 data-number="1.4.3" class="anchored" data-anchor-id="contribución-de-tbx11k"><span class="header-section-number">1.4.3</span> Contribución de TBX11K</h3>
+<ul>
+<li><strong>Primer dataset público TB con anotaciones a nivel de bounding box</strong> (no solo imagen-level)</li>
+<li><strong>11,200 radiografías</strong> - 17x más grande que dataset anterior</li>
+<li><strong>Anotaciones clínicas validadas</strong></li>
+<li><strong>Múltiples lesiones por imagen soportadas</strong></li>
+<li><strong>Base sólida para investigación en IA médica</strong></li>
+</ul>
+<div id="cell-4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;executionInfo&quot;,&quot;value&quot;:{&quot;elapsed&quot;:43,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1789440112666,&quot;user&quot;:{&quot;displayName&quot;:&quot;Camilo Andrés Mujica Escorcia&quot;,&quot;userId&quot;:&quot;13872329085096018059&quot;},&quot;user_tz&quot;:300}}" data-outputid="8ad77121-5f3d-42cf-c14a-78276a3734eb">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definir datos del dataset (fuente: Liu et al., CVPR 2020 / TPAMI 2023)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>dataset_stats <span class="op">=</span> {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Total de Radiografías'</span>: <span class="dv">11200</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Sano (Healthy)'</span>: <span class="dv">5000</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Enfermo no-TB (Sick &amp; Non-TB)'</span>: <span class="dv">5000</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Con TB'</span>: <span class="dv">1200</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Active TB (imágenes)'</span>: <span class="dv">924</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Latent TB (imágenes)'</span>: <span class="dv">212</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Active &amp; Latent TB (imágenes)'</span>: <span class="dv">54</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Uncertain TB (imágenes)'</span>: <span class="dv">10</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Total de Bboxes (train+val)'</span>: <span class="dv">1211</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Bboxes Active TB'</span>: <span class="dv">972</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Bboxes Latent TB'</span>: <span class="dv">239</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Imágenes TB con bboxes'</span>: <span class="dv">799</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Imágenes Multi-lesión (≥2 bboxes)'</span>: <span class="dv">382</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear DataFrame para referencia</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>stats_df <span class="op">=</span> pd.DataFrame(<span class="bu">list</span>(dataset_stats.items()), columns<span class="op">=</span>[<span class="st">'Métrica'</span>, <span class="st">'Valor'</span>])</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Dataset TBX11K - Estadísticas Clave'</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'='</span><span class="op">*</span><span class="dv">70</span>)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(stats_df.to_string(index<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'='</span><span class="op">*</span><span class="dv">70</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Distribución por condición (porcentajes)</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> dataset_stats[<span class="st">'Total de Radiografías'</span>]</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">Distribución por condición:'</span>)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Sano:          </span><span class="sc">{</span>dataset_stats[<span class="st">'Sano (Healthy)'</span>]<span class="sc">:&gt;6,}</span><span class="ss">  (</span><span class="sc">{</span>dataset_stats[<span class="st">'Sano (Healthy)'</span>]<span class="op">/</span>total<span class="op">*</span><span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">%)"</span>)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Enfermo no-TB: </span><span class="sc">{</span>dataset_stats[<span class="st">'Enfermo no-TB (Sick &amp; Non-TB)'</span>]<span class="sc">:&gt;6,}</span><span class="ss">  (</span><span class="sc">{</span>dataset_stats[<span class="st">'Enfermo no-TB (Sick &amp; Non-TB)'</span>]<span class="op">/</span>total<span class="op">*</span><span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">%)"</span>)</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Con TB:        </span><span class="sc">{</span>dataset_stats[<span class="st">'Con TB'</span>]<span class="sc">:&gt;6,}</span><span class="ss">  (</span><span class="sc">{</span>dataset_stats[<span class="st">'Con TB'</span>]<span class="op">/</span>total<span class="op">*</span><span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">%)"</span>)</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Distribución por tipo de TB (porcentajes)</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">Distribución por tipo de TB (imágenes):'</span>)</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>n_tb <span class="op">=</span> dataset_stats[<span class="st">'Con TB'</span>]</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> [<span class="st">'Active TB (imágenes)'</span>, <span class="st">'Latent TB (imágenes)'</span>,</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>          <span class="st">'Active &amp; Latent TB (imágenes)'</span>, <span class="st">'Uncertain TB (imágenes)'</span>]:</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> dataset_stats[k]</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>k<span class="sc">:&lt;30}</span><span class="ss"> </span><span class="sc">{</span>v<span class="sc">:&gt;4}</span><span class="ss">  (</span><span class="sc">{</span>v<span class="op">/</span>n_tb<span class="op">*</span><span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">%)"</span>)</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Separación oficial Train+Val vs Test (Tabla 2 del paper) ---</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>splits <span class="op">=</span> {</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Sano (Healthy)'</span>:                [<span class="dv">3000</span>, <span class="dv">800</span>, <span class="dv">1200</span>],</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Enfermo no-TB (Sick &amp; Non-TB)'</span>: [<span class="dv">3000</span>, <span class="dv">800</span>, <span class="dv">1200</span>],</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Active TB'</span>:                     [<span class="dv">473</span>, <span class="dv">157</span>, <span class="dv">294</span>],</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Latent TB'</span>:                     [<span class="dv">104</span>, <span class="dv">36</span>, <span class="dv">72</span>],</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Active &amp; Latent TB'</span>:            [<span class="dv">23</span>, <span class="dv">7</span>, <span class="dv">24</span>],</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Uncertain TB'</span>:                  [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>],</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>split_df <span class="op">=</span> pd.DataFrame(splits, index<span class="op">=</span>[<span class="st">'Train'</span>, <span class="st">'Val'</span>, <span class="st">'Test'</span>]).T</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>split_df[<span class="st">'Total'</span>] <span class="op">=</span> split_df[<span class="st">'Train'</span>] <span class="op">+</span> split_df[<span class="st">'Val'</span>] <span class="op">+</span> split_df[<span class="st">'Test'</span>]</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>split_df[<span class="st">'Train+Val (público)'</span>] <span class="op">=</span> split_df[<span class="st">'Train'</span>] <span class="op">+</span> split_df[<span class="st">'Val'</span>]</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>split_df.loc[<span class="st">'Total'</span>] <span class="op">=</span> split_df.<span class="bu">sum</span>()</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>split_df <span class="op">=</span> split_df[[<span class="st">'Train'</span>, <span class="st">'Val'</span>, <span class="st">'Test'</span>, <span class="st">'Train+Val (público)'</span>, <span class="st">'Total'</span>]]</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">Separación oficial de splits (Tabla 2, Liu et al.):'</span>)</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(split_df.to_string())</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">Conjuntos públicos vs privados:'</span>)</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Train+Val (anotaciones públicas): </span><span class="sc">{</span><span class="bu">int</span>(split_df.loc[<span class="st">'Total'</span>, <span class="st">'Train+Val (público)'</span>])<span class="sc">:,}</span><span class="ss"> imágenes"</span>)</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Test (etiquetas privadas):        </span><span class="sc">{</span><span class="bu">int</span>(split_df.loc[<span class="st">'Total'</span>, <span class="st">'Test'</span>])<span class="sc">:,}</span><span class="ss"> imágenes"</span>)</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Total general:                    </span><span class="sc">{</span><span class="bu">int</span>(split_df.loc[<span class="st">'Total'</span>, <span class="st">'Total'</span>])<span class="sc">:,}</span><span class="ss"> imágenes"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Dataset TBX11K - Estadísticas Clave
+======================================================================
+                          Métrica  Valor
+            Total de Radiografías  11200
+                   Sano (Healthy)   5000
+    Enfermo no-TB (Sick &amp; Non-TB)   5000
+                           Con TB   1200
+             Active TB (imágenes)    924
+             Latent TB (imágenes)    212
+    Active &amp; Latent TB (imágenes)     54
+          Uncertain TB (imágenes)     10
+      Total de Bboxes (train+val)   1211
+                 Bboxes Active TB    972
+                 Bboxes Latent TB    239
+           Imágenes TB con bboxes    799
+Imágenes Multi-lesión (≥2 bboxes)    382
+======================================================================
+
+Distribución por condición:
+  Sano:           5,000  (44.6%)
+  Enfermo no-TB:  5,000  (44.6%)
+  Con TB:         1,200  (10.7%)
+
+Distribución por tipo de TB (imágenes):
+  Active TB (imágenes)            924  (77.0%)
+  Latent TB (imágenes)            212  (17.7%)
+  Active &amp; Latent TB (imágenes)    54  (4.5%)
+  Uncertain TB (imágenes)          10  (0.8%)
+
+Separación oficial de splits (Tabla 2, Liu et al.):
+                               Train   Val  Test  Train+Val (público)  Total
+Sano (Healthy)                  3000   800  1200                 3800   5000
+Enfermo no-TB (Sick &amp; Non-TB)   3000   800  1200                 3800   5000
+Active TB                        473   157   294                  630    924
+Latent TB                        104    36    72                  140    212
+Active &amp; Latent TB                23     7    24                   30     54
+Uncertain TB                       0     0    10                    0     10
+Total                           6600  1800  2800                 8400  11200
+
+Conjuntos públicos vs privados:
+  Train+Val (anotaciones públicas): 8,400 imágenes
+  Test (etiquetas privadas):        2,800 imágenes
+  Total general:                    11,200 imágenes</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="estadisticas" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="estadisticas"><span class="header-section-number">1.5</span> Estadísticas Detalladas del Dataset</h2>
+<section id="tamaño-y-composición" class="level3" data-number="1.5.1">
+<h3 data-number="1.5.1" class="anchored" data-anchor-id="tamaño-y-composición"><span class="header-section-number">1.5.1</span> 1. Tamaño y Composición</h3>
+<p><strong>Distribución por condición (total: 11,200 imágenes)</strong>: - Sano (Healthy): 5,000 imágenes (44.6%) - Enfermo no-TB (Sick &amp; Non-TB): 5,000 imágenes (44.6%) - Con TB: 1,200 imágenes (10.7%)</p>
+<p><strong>Interpretación</strong>: El dataset refleja la incidencia realista de un escenario de screening: la mayoría de las radiografías NO presenta TB (89.3%), siendo la TB una minoría clínica (10.7%). La categoría <em>Sick &amp; Non-TB</em> permite distinguir pacientes enfermos por otras patologías, reduciendo falsos positivos en entornos clínicos reales.</p>
+</section>
+<section id="tipos-de-tb-sobre-1200-imágenes-tb" class="level3" data-number="1.5.2">
+<h3 data-number="1.5.2" class="anchored" data-anchor-id="tipos-de-tb-sobre-1200-imágenes-tb"><span class="header-section-number">1.5.2</span> 2. Tipos de TB (sobre 1,200 imágenes TB)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 32%">
+<col style="width: 9%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tipo</th>
+<th>Imágenes</th>
+<th>%</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Active TB</strong></td>
+<td>924</td>
+<td>77.0%</td>
+<td>TB activa/aguda - Patrón infeccioso activo</td>
+</tr>
+<tr class="even">
+<td><strong>Latent TB</strong></td>
+<td>212</td>
+<td>17.7%</td>
+<td>TB latente/inactiva - Infección antigua controlada</td>
+</tr>
+<tr class="odd">
+<td><strong>Active &amp; Latent TB</strong></td>
+<td>54</td>
+<td>4.5%</td>
+<td>Imagen con ambos tipos simultáneamente</td>
+</tr>
+<tr class="even">
+<td><strong>Uncertain TB</strong></td>
+<td>10</td>
+<td>0.8%</td>
+<td>Tipo no reconocible con los medios médicos actuales</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Nota (bboxes)</strong>: Además de las etiquetas por imagen, los bboxes públicos (train+val, 799 imágenes TB) se reparten en 972 cajas tipo <em>active</em> y 239 tipo <em>latent</em> (total 1,211).</p>
+</section>
+<section id="separación-trainval-vs-test-1" class="level3" data-number="1.5.3">
+<h3 data-number="1.5.3" class="anchored" data-anchor-id="separación-trainval-vs-test-1"><span class="header-section-number">1.5.3</span> 3. Separación Train+Val vs Test</h3>
+<p>El dataset NO es un único lote: las etiquetas y bboxes solo se publican para <strong>train+val (8,400 imágenes)</strong>. El <strong>test (2,800 imágenes)</strong> se retiene con etiquetas privadas para el challenge online.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 10%">
+<col style="width: 7%">
+<col style="width: 31%">
+<col style="width: 23%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Categoría</th>
+<th style="text-align: right;">Train</th>
+<th style="text-align: right;">Val</th>
+<th style="text-align: right;">Train+Val (público)</th>
+<th style="text-align: right;">Test (privado)</th>
+<th style="text-align: right;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sano (Healthy)</td>
+<td style="text-align: right;">3,000</td>
+<td style="text-align: right;">800</td>
+<td style="text-align: right;">3,800</td>
+<td style="text-align: right;">1,200</td>
+<td style="text-align: right;">5,000</td>
+</tr>
+<tr class="even">
+<td>Enfermo no-TB (Sick &amp; Non-TB)</td>
+<td style="text-align: right;">3,000</td>
+<td style="text-align: right;">800</td>
+<td style="text-align: right;">3,800</td>
+<td style="text-align: right;">1,200</td>
+<td style="text-align: right;">5,000</td>
+</tr>
+<tr class="odd">
+<td>Active TB</td>
+<td style="text-align: right;">473</td>
+<td style="text-align: right;">157</td>
+<td style="text-align: right;">630</td>
+<td style="text-align: right;">294</td>
+<td style="text-align: right;">924</td>
+</tr>
+<tr class="even">
+<td>Latent TB</td>
+<td style="text-align: right;">104</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">140</td>
+<td style="text-align: right;">72</td>
+<td style="text-align: right;">212</td>
+</tr>
+<tr class="odd">
+<td>Active &amp; Latent TB</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">54</td>
+</tr>
+<tr class="even">
+<td>Uncertain TB</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td style="text-align: right;">6,600</td>
+<td style="text-align: right;">1,800</td>
+<td style="text-align: right;">8,400</td>
+<td style="text-align: right;">2,800</td>
+<td style="text-align: right;">11,200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Puntos clave</strong>: - El conjunto con anotaciones públicas suma <strong>8,400</strong> (58.9% train + 16.1% val), NO 11,200. - El test (<strong>2,800</strong> = 25%) incluye 400 imágenes TB: todas las <strong>10 Uncertain TB</strong> están solo en test. - Como las etiquetas de test son privadas, este EDA se realiza sobre la porción pública (train+val).</p>
+<p><strong>Nota</strong>: La Tabla 2 del paper reporta 800 imágenes TB en train+val (630 active + 140 latent + 30 ambas); los archivos realmente publicados contienen 799.</p>
+</section>
+<section id="complejidad-de-casos-799-imágenes-tb-con-bboxes-anotados" class="level3" data-number="1.5.4">
+<h3 data-number="1.5.4" class="anchored" data-anchor-id="complejidad-de-casos-799-imágenes-tb-con-bboxes-anotados"><span class="header-section-number">1.5.4</span> 4. Complejidad de Casos (799 imágenes TB con bboxes anotados)</h3>
+<ul>
+<li><strong>1 Lesión por imagen</strong>: 417 imágenes (52.2%)</li>
+<li><strong>2 Lesiones por imagen</strong>: 355 imágenes (44.4%)</li>
+<li><strong>3 Lesiones por imagen</strong>: 24 imágenes (3.0%)</li>
+<li><strong>4 Lesiones por imagen</strong>: 3 imágenes (0.4%)</li>
+</ul>
+<p><strong>Interpretación</strong>: El caso más común es una sola lesión, pero cerca de la mitad de las imágenes (382; 47.8%) presentan 2 o más lesiones. Estas imágenes con múltiples lesiones son clave para validar la capacidad de detección del modelo.</p>
+<div id="cell-6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;executionInfo&quot;,&quot;value&quot;:{&quot;elapsed&quot;:1690,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1789440114354,&quot;user&quot;:{&quot;displayName&quot;:&quot;Camilo Andrés Mujica Escorcia&quot;,&quot;userId&quot;:&quot;13872329085096018059&quot;},&quot;user_tz&quot;:300}}" data-outputid="7e116e0b-b7f8-4c1a-b004-bdc266618971">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear figura con visualizaciones principales</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">10</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'EDA - Dataset TBX11K</span><span class="ch">\n</span><span class="st">Análisis de Datos Puro'</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">16</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, y<span class="op">=</span><span class="fl">0.995</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Distribución por condición (Sano / Enfermo no-TB / TB)</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">0</span>, <span class="dv">0</span>]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>sizes <span class="op">=</span> [<span class="dv">5000</span>, <span class="dv">5000</span>, <span class="dv">1200</span>]</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> [<span class="st">'Sano</span><span class="ch">\n</span><span class="st">(5,000)'</span>, <span class="st">'Enfermo no-TB</span><span class="ch">\n</span><span class="st">(5,000)'</span>, <span class="st">'Con TB</span><span class="ch">\n</span><span class="st">(1,200)'</span>]</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'#27AE60'</span>, <span class="st">'#4ECDC4'</span>, <span class="st">'#FF6B6B'</span>]</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>ax.pie(sizes, labels<span class="op">=</span>labels, autopct<span class="op">=</span><span class="st">'</span><span class="sc">%1.1f%%</span><span class="st">'</span>, colors<span class="op">=</span>colors,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>       explode<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.06</span>), startangle<span class="op">=</span><span class="dv">90</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>       textprops<span class="op">=</span>{<span class="st">'fontsize'</span>: <span class="dv">10</span>, <span class="st">'weight'</span>: <span class="st">'bold'</span>})</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Distribución: Sano / Enfermo no-TB / TB'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Tipos de TB (imágenes)</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">0</span>, <span class="dv">1</span>]</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>tipos <span class="op">=</span> [<span class="st">'Active TB</span><span class="ch">\n</span><span class="st">(924)'</span>, <span class="st">'Latent TB</span><span class="ch">\n</span><span class="st">(212)'</span>, <span class="st">'Active+Latent</span><span class="ch">\n</span><span class="st">(54)'</span>, <span class="st">'Uncertain</span><span class="ch">\n</span><span class="st">(10)'</span>]</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>valores <span class="op">=</span> [<span class="dv">924</span>, <span class="dv">212</span>, <span class="dv">54</span>, <span class="dv">10</span>]</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>colors_tb <span class="op">=</span> [<span class="st">'#E74C3C'</span>, <span class="st">'#F39C12'</span>, <span class="st">'#8E44AD'</span>, <span class="st">'#7F8C8D'</span>]</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.bar(tipos, valores, color<span class="op">=</span>colors_tb, edgecolor<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Número de Imágenes'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Tipos de TB (imágenes)'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>ax.grid(axis<span class="op">=</span><span class="st">'y'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, val <span class="kw">in</span> <span class="bu">zip</span>(bars, valores):</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    height <span class="op">=</span> bar.get_height()</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    ax.text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="fl">2.</span>, height <span class="op">+</span> <span class="dv">15</span>,</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f'</span><span class="sc">{</span>val<span class="sc">}</span><span class="ch">\n</span><span class="ss">(</span><span class="sc">{</span>val<span class="op">*</span><span class="dv">100</span><span class="op">/</span><span class="bu">sum</span>(valores)<span class="sc">:.1f}</span><span class="ss">%)'</span>,</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>            ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Complejidad de Casos (799 imágenes TB anotadas)</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">1</span>, <span class="dv">0</span>]</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>lesiones <span class="op">=</span> [<span class="st">'1 Lesión</span><span class="ch">\n</span><span class="st">(52.2%)'</span>, <span class="st">'2 Lesiones</span><span class="ch">\n</span><span class="st">(44.4%)'</span>, <span class="st">'3 Lesiones</span><span class="ch">\n</span><span class="st">(3.0%)'</span>, <span class="st">'4 Lesiones</span><span class="ch">\n</span><span class="st">(0.4%)'</span>]</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>cantidades <span class="op">=</span> [<span class="dv">417</span>, <span class="dv">355</span>, <span class="dv">24</span>, <span class="dv">3</span>]</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>colores <span class="op">=</span> [<span class="st">'#27AE60'</span>, <span class="st">'#F39C12'</span>, <span class="st">'#E74C3C'</span>, <span class="st">'#8E44AD'</span>]</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.barh(lesiones, cantidades, color<span class="op">=</span>colores, edgecolor<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Número de Imágenes TB'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Complejidad de Casos (bboxes train+val)'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>ax.grid(axis<span class="op">=</span><span class="st">'x'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, val <span class="kw">in</span> <span class="bu">zip</span>(bars, cantidades):</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    ax.text(val <span class="op">+</span> <span class="dv">10</span>, bar.get_y() <span class="op">+</span> bar.get_height()<span class="op">/</span><span class="dv">2</span>, <span class="ss">f'</span><span class="sc">{</span>val<span class="sc">}</span><span class="ss">'</span>,</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>            va<span class="op">=</span><span class="st">'center'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Especificaciones Técnicas</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>ax.axis(<span class="st">'off'</span>)</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>specs_text <span class="op">=</span> <span class="st">"""ESPECIFICACIONES TÉCNICAS</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="st">Imágenes:</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="st">  • Resolución: 512 × 512 píxeles</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="st">  • Formato: PNG (sin pérdida)</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a><span class="st">  • Color: Grayscale (8-bit)</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a><span class="st">  • Tamaño unitario: ~262 KB/imagen</span></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="st">  • Tamaño total: ~2.9 GB</span></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a><span class="st">Splits:</span></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="st">  • Train: 6,600 imágenes</span></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a><span class="st">  • Validación: 1,800 imágenes</span></span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a><span class="st">  • Train+Val: 8,400 imágenes (anotado)</span></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a><span class="st">  • Test: 2,800 imágenes (etiquetas privadas)</span></span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a><span class="st">Anotaciones (solo train+val):</span></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a><span class="st">  • 799 imágenes TB con bboxes</span></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a><span class="st">  • Total de lesiones: 1,211</span></span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a><span class="st">  • Multi-lesión (≥2): 382 imágenes</span></span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a><span class="st">  • Validación: Clínicamente verificadas</span></span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a><span class="st">Rango de Valores:</span></span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a><span class="st">  • Píxeles: [0, 255]</span></span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a><span class="st">  • Tipo de dato: uint8"""</span></span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>ax.text(<span class="fl">0.05</span>, <span class="fl">0.95</span>, specs_text, transform<span class="op">=</span>ax.transAxes,</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>        fontsize<span class="op">=</span><span class="dv">10</span>, verticalalignment<span class="op">=</span><span class="st">'top'</span>, fontfamily<span class="op">=</span><span class="st">'monospace'</span>,</span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>        bbox<span class="op">=</span><span class="bu">dict</span>(boxstyle<span class="op">=</span><span class="st">'round'</span>, facecolor<span class="op">=</span><span class="st">'wheat'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, pad<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">' Visualización completada'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="EDA_Dataset_TBX11K_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Visualización completada</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="objetivos-de-trabajo-futuro" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="objetivos-de-trabajo-futuro"><span class="header-section-number">1.6</span> Objetivos de Trabajo Futuro</h2>
+<section id="objetivo-general" class="level3" data-number="1.6.1">
+<h3 data-number="1.6.1" class="anchored" data-anchor-id="objetivo-general"><span class="header-section-number">1.6.1</span> Objetivo General</h3>
+<blockquote class="blockquote">
+<p><strong>Desarrollar un sistema automático de segmentación de lesiones TB en radiografías de tórax mediante técnicas de aprendizaje débilmente supervisado</strong>, que permita:</p>
+<ol type="1">
+<li>Convertir anotaciones de bounding boxes en máscaras segmentadas precisas</li>
+<li>Entrenar modelos de segmentación sin anotaciones píxel-a-píxel costosas</li>
+<li>Facilitar diagnóstico asistido por computadora en entornos clínicos</li>
+<li>Crear herramienta reutilizable para investigación en IA médica</li>
+</ol>
+</blockquote>
+</section>
+<section id="objetivos-específicos" class="level3" data-number="1.6.2">
+<h3 data-number="1.6.2" class="anchored" data-anchor-id="objetivos-específicos"><span class="header-section-number">1.6.2</span> Objetivos Específicos</h3>
+<section id="o.e.1-preparación-y-procesamiento-de-datos" class="level4" data-number="1.6.2.1">
+<h4 data-number="1.6.2.1" class="anchored" data-anchor-id="o.e.1-preparación-y-procesamiento-de-datos"><span class="header-section-number">1.6.2.1</span> O.E.1: Preparación y Procesamiento de Datos</h4>
+<ul>
+<li>Validar integridad de 11,200 radiografías</li>
+<li>Verificar formato PNG y dimensiones (512×512)</li>
+<li>Parsear y validar CSV de bounding boxes</li>
+<li>Usar splits oficiales: Train 6,600 | Val 1,800 | Test 2,800 (test sin etiquetas públicas)</li>
+<li>Calcular estadísticas de normalización</li>
+</ul>
+</section>
+<section id="o.e.2-generación-de-máscaras-de-entrenamiento" class="level4" data-number="1.6.2.2">
+<h4 data-number="1.6.2.2" class="anchored" data-anchor-id="o.e.2-generación-de-máscaras-de-entrenamiento"><span class="header-section-number">1.6.2.2</span> O.E.2: Generación de Máscaras de Entrenamiento</h4>
+<ul>
+<li>Crear pseudomáscaras rectangulares desde bboxes</li>
+<li>Refinar usando métodos alternativos (GrabCut, SAM, etc.)</li>
+<li>Manejar múltiples lesiones por imagen</li>
+<li>Validación manual de calidad (~100 casos)</li>
+<li>Documentar mejoras vs baseline</li>
+</ul>
+</section>
+<section id="o.e.3-entrenamiento-de-modelo-base" class="level4" data-number="1.6.2.3">
+<h4 data-number="1.6.2.3" class="anchored" data-anchor-id="o.e.3-entrenamiento-de-modelo-base"><span class="header-section-number">1.6.2.3</span> O.E.3: Entrenamiento de Modelo Base</h4>
+<ul>
+<li>Implementar U-Net 2D (encoder-decoder)</li>
+<li>Configurar loss functions ponderadas (Dice + Cross-entropy)</li>
+<li>Data augmentation y regularización</li>
+<li>Monitoreo de convergencia</li>
+<li>Guardado de checkpoints</li>
+</ul>
+</section>
+<section id="o.e.4-análisis-de-resultados" class="level4" data-number="1.6.2.4">
+<h4 data-number="1.6.2.4" class="anchored" data-anchor-id="o.e.4-análisis-de-resultados"><span class="header-section-number">1.6.2.4</span> O.E.4: Análisis de Resultados</h4>
+<ul>
+<li>Calcular Dice, IoU, Sensibilidad, Especificidad</li>
+<li>Análisis por subgrupos (Active vs Latent TB)</li>
+<li>Análisis de errores (false positive/negative)</li>
+<li>Visualización de predicciones</li>
+<li>Redacción de reporte final</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="métricas-a-reportar" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="métricas-a-reportar"><span class="header-section-number">1.7</span> Métricas a Reportar</h2>
+<section id="a-nivel-de-píxel-segmentación" class="level3" data-number="1.7.1">
+<h3 data-number="1.7.1" class="anchored" data-anchor-id="a-nivel-de-píxel-segmentación"><span class="header-section-number">1.7.1</span> A Nivel de Píxel (Segmentación)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 7%">
+<col style="width: 18%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Métrica</th>
+<th>Fórmula</th>
+<th>Interpretación</th>
+<th>Rango</th>
+<th>Objetivo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Dice</strong></td>
+<td>2|X∩Y|/(|X|+|Y|)</td>
+<td>Solapamiento de máscaras</td>
+<td>[0,1]</td>
+<td>&gt; 0.70</td>
+</tr>
+<tr class="even">
+<td><strong>IoU</strong></td>
+<td>|X∩Y|/|X∪Y|</td>
+<td>Intersección/Unión</td>
+<td>[0,1]</td>
+<td>&gt; 0.60</td>
+</tr>
+<tr class="odd">
+<td><strong>Sensibilidad</strong></td>
+<td>TP/(TP+FN)</td>
+<td>¿Detecta lesiones reales?</td>
+<td>[0,1]</td>
+<td>&gt; 0.80</td>
+</tr>
+<tr class="even">
+<td><strong>Especificidad</strong></td>
+<td>TN/(TN+FP)</td>
+<td>¿Evita falsos positivos?</td>
+<td>[0,1]</td>
+<td>&gt; 0.85</td>
+</tr>
+<tr class="odd">
+<td><strong>Precisión</strong></td>
+<td>TP/(TP+FP)</td>
+<td>Confiabilidad predicciones</td>
+<td>[0,1]</td>
+<td>&gt; 0.75</td>
+</tr>
+<tr class="even">
+<td><strong>F1-Score</strong></td>
+<td>2×(P×R)/(P+R)</td>
+<td>Balance precisión-recall</td>
+<td>[0,1]</td>
+<td>&gt; 0.70</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="a-nivel-clínico-diagnóstico" class="level3" data-number="1.7.2">
+<h3 data-number="1.7.2" class="anchored" data-anchor-id="a-nivel-clínico-diagnóstico"><span class="header-section-number">1.7.2</span> A Nivel Clínico (Diagnóstico)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 37%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Métrica</th>
+<th>Significado</th>
+<th>Importancia</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>VPP</strong></td>
+<td>Si dice TB, ¿realmente hay TB?</td>
+<td>Confianza positiva</td>
+</tr>
+<tr class="even">
+<td><strong>VPN</strong></td>
+<td>Si dice sano, ¿realmente lo es?</td>
+<td>Confianza negativa</td>
+</tr>
+<tr class="odd">
+<td><strong>Sensibilidad Clínica</strong></td>
+<td>¿Identifica lesiones TB reales?</td>
+<td><strong>CRÍTICA</strong> - No perder casos</td>
+</tr>
+<tr class="even">
+<td><strong>Especificidad Clínica</strong></td>
+<td>¿Evita alarmas falsas?</td>
+<td>Importante - Reduce sobrediagnóstico</td>
+</tr>
+<tr class="odd">
+<td><strong>AUC-ROC</strong></td>
+<td>Discriminación global</td>
+<td>Rendimiento general del modelo</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="análisis-por-subgrupos" class="level3" data-number="1.7.3">
+<h3 data-number="1.7.3" class="anchored" data-anchor-id="análisis-por-subgrupos"><span class="header-section-number">1.7.3</span> Análisis por Subgrupos</h3>
+<ul>
+<li>Active TB vs Latent TB</li>
+<li>Lesiones pequeñas vs grandes</li>
+<li>Lesiones únicas vs múltiples</li>
+<li>Por ubicación anatómica</li>
+<li>Por calidad de imagen</li>
+</ul>
+</section>
+</section>
+<section id="consideraciones-importantes" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="consideraciones-importantes"><span class="header-section-number">1.8</span> Consideraciones Importantes</h2>
+<section id="limitaciones-del-dataset" class="level3" data-number="1.8.1">
+<h3 data-number="1.8.1" class="anchored" data-anchor-id="limitaciones-del-dataset"><span class="header-section-number">1.8.1</span> Limitaciones del Dataset</h3>
+<p><strong>Anotaciones Débiles</strong> - Bounding boxes son aproximadas (no contornos exactos) - No representan lesiones pixel-perfectas - Requieren refinamiento antes de usar como ground truth</p>
+<p><strong>Sesgo Geográfico</strong> - Dataset procede de región específica (China) - Puede no representar patología TB en otras poblaciones - Validación local es necesaria (especialmente en Atlántico, Colombia)</p>
+<p><strong>Variabilidad Técnica</strong> - Radiografías de múltiples equipos y centros - Variación en técnica radiográfica - Calidad heterogénea de imágenes - Requiere normalización y data augmentation</p>
+<p><strong>Lesiones Pequeñas</strong> - Lesiones &lt; 5% del área de imagen son difíciles de detectar - Requiere arquitectura con buena resolución espacial - Data augmentation crítica</p>
+</section>
+<section id="desafíos-metodológicos" class="level3" data-number="1.8.2">
+<h3 data-number="1.8.2" class="anchored" data-anchor-id="desafíos-metodológicos"><span class="header-section-number">1.8.2</span> Desafíos Metodológicos</h3>
+<p><strong>Desequilibrio de Clases</strong></p>
+<pre><code>En cada radiografía:
+├─ Fondo (no-lesión):  ~450,000 píxeles (87%)
+└─ Lesión:             ~60,000 píxeles (13%)
+
+Problema: Modelo tiende a predecir "fondo" trivialmente
+Solución: Loss functions ponderadas (Dice, Focal Loss)</code></pre>
+<p><strong>Lesiones Ambiguas</strong> - Algunos infiltrados difusos no claramente TB - Solapamiento con otras patologías - Requiere validación clínica</p>
+<p><strong>Fusión de Lesiones Cercanas</strong> - Métodos de refinamiento pueden fusionar lesiones próximas - Requiere post-procesamiento (watershed, etc.)</p>
+</section>
+<section id="crítico-no-es-diagnóstico" class="level3" data-number="1.8.3">
+<h3 data-number="1.8.3" class="anchored" data-anchor-id="crítico-no-es-diagnóstico"><span class="header-section-number">1.8.3</span> CRÍTICO: No es Diagnóstico</h3>
+<p><strong>Este modelo es ASISTENCIA MÉDICA, NO DIAGNÓSTICO</strong> - Requiere interpretación radiológica especializada - No reemplaza especialista TB - Validación clínica exhaustiva es obligatoria - Requiere estudios de concordancia antes de uso clínico</p>
+</section>
+</section>
+<section id="conclusiones" class="level2" data-number="1.9">
+<h2 data-number="1.9" class="anchored" data-anchor-id="conclusiones"><span class="header-section-number">1.9</span> Conclusiones</h2>
+<section id="dataset-tbx11k-evaluación-general" class="level3" data-number="1.9.1">
+<h3 data-number="1.9.1" class="anchored" data-anchor-id="dataset-tbx11k-evaluación-general"><span class="header-section-number">1.9.1</span> Dataset TBX11K: Evaluación General</h3>
+<section id="fortalezas" class="level4" data-number="1.9.1.1">
+<h4 data-number="1.9.1.1" class="anchored" data-anchor-id="fortalezas"><span class="header-section-number">1.9.1.1</span> Fortalezas</h4>
+<ol type="1">
+<li><strong>Dataset robusto y público</strong>
+<ul>
+<li>11,200 radiografías es cantidad suficiente para entrenar deep learning</li>
+<li>Validación clínica de etiquetas</li>
+<li>Disponible para investigación</li>
+</ul></li>
+<li><strong>Anotaciones detalladas</strong>
+<ul>
+<li>Bounding boxes permiten generar máscaras de entrenamiento</li>
+<li>Múltiples lesiones por imagen soportadas</li>
+<li>Diferenciación Active vs Latent TB</li>
+</ul></li>
+<li><strong>Parámetros técnicos viables</strong>
+<ul>
+<li>Resolución 512×512 es estándar en radiografía digital</li>
+<li>Formato PNG sin pérdida asegura calidad</li>
+<li>Grayscale simplifica procesamiento</li>
+</ul></li>
+<li><strong>Problema bien definido</strong>
+<ul>
+<li>Segmentación de TB es tarea médica importante</li>
+<li>Tiene aplicaciones clínicas potenciales</li>
+<li>Alineado con investigación internacional</li>
+</ul></li>
+</ol>
+</section>
+<section id="limitaciones" class="level4" data-number="1.9.1.2">
+<h4 data-number="1.9.1.2" class="anchored" data-anchor-id="limitaciones"><span class="header-section-number">1.9.1.2</span> Limitaciones</h4>
+<ol type="1">
+<li><strong>Anotaciones débiles</strong>
+<ul>
+<li>Bboxes ≠ máscaras precisas</li>
+<li>Requiere refinamiento antes de usarse como ground truth</li>
+</ul></li>
+<li><strong>Sesgo geográfico</strong>
+<ul>
+<li>Dataset de región específica</li>
+<li>Validación en contextos locales necesaria</li>
+</ul></li>
+<li><strong>Variabilidad técnica</strong>
+<ul>
+<li>Equipos y calidad heterogénea</li>
+<li>Normalización cuidadosa requerida</li>
+</ul></li>
+<li><strong>No es diagnóstico</strong>
+<ul>
+<li>Es asistencia, no reemplaza especialista</li>
+<li>Validación clínica es obligatoria</li>
+</ul></li>
+</ol>
+</section>
+</section>
+</section>
+<section id="referencias-bibliográficas" class="level2" data-number="1.10">
+<h2 data-number="1.10" class="anchored" data-anchor-id="referencias-bibliográficas"><span class="header-section-number">1.10</span> Referencias Bibliográficas</h2>
+<section id="dataset-principal" class="level3" data-number="1.10.1">
+<h3 data-number="1.10.1" class="anchored" data-anchor-id="dataset-principal"><span class="header-section-number">1.10.1</span> Dataset Principal</h3>
+<ul>
+<li><strong>Liu et al., 2020</strong> - “Rethinking Computer-aided Tuberculosis Diagnosis”
+<ul>
+<li>CVPR 2020 (IEEE/CVF Conference)</li>
+<li>DOI: 10.1109/CVPR42600.2020.01270</li>
+<li>URL: http://mmcheng.net/tb/</li>
+</ul></li>
+</ul>
+</section>
+<section id="arquitecturas-base" class="level3" data-number="1.10.2">
+<h3 data-number="1.10.2" class="anchored" data-anchor-id="arquitecturas-base"><span class="header-section-number">1.10.2</span> Arquitecturas Base</h3>
+<ul>
+<li><strong>Ronneberger et al., 2015</strong> - “U-Net: Convolutional Networks for Biomedical Image Segmentation”
+<ul>
+<li>MICCAI 2015</li>
+<li>Arquitectura estándar para segmentación médica</li>
+<li>DOI: 10.1007/978-3-319-24574-4_28</li>
+</ul></li>
+</ul>
+</section>
+<section id="datasets-relacionados" class="level3" data-number="1.10.3">
+<h3 data-number="1.10.3" class="anchored" data-anchor-id="datasets-relacionados"><span class="header-section-number">1.10.3</span> Datasets Relacionados</h3>
+<ul>
+<li><strong>Irvin et al., 2019</strong> - CheXpert
+<ul>
+<li>224K radiografías públicas</li>
+<li>AAAI 2019</li>
+</ul></li>
+<li><strong>Wang et al., 2017</strong> - ChestX-ray14
+<ul>
+<li>112K radiografías públicas</li>
+<li>Benchmark importante en radiografía de tórax</li>
+</ul></li>
+</ul>
+</section>
+<section id="librerías-y-herramientas" class="level3" data-number="1.10.4">
+<h3 data-number="1.10.4" class="anchored" data-anchor-id="librerías-y-herramientas"><span class="header-section-number">1.10.4</span> Librerías y Herramientas</h3>
+<ul>
+<li><strong>PyTorch</strong>: Deep Learning Framework</li>
+<li><strong>OpenCV</strong>: Computer Vision Library</li>
+<li><strong>scikit-learn</strong>: Machine Learning Metrics</li>
+<li><strong>Pandas/NumPy</strong>: Data Science</li>
+<li><strong>Matplotlib/Seaborn</strong>: Data Visualization</li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const cellDetails = window.document.querySelectorAll(".cell details.code-fold");
+        for (let i=0; i<cellDetails.length; i++) {
+          const details = cellDetails[i];
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell div.sourceCode.cell-code");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Preface">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
